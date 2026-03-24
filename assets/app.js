@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const inquiryStatusText = {
     en: {
       sending: "Sending inquiry...",
-      success: "Inquiry submitted successfully. It has been saved to the local inquiry sheet and sent to email.",
+      success: "Inquiry submitted successfully. It has been sent to our email inbox for follow-up.",
       error: "Unable to submit the inquiry right now. Please try again later or contact us on WhatsApp."
     },
     zh: {
       sending: "正在提交询盘...",
-      success: "询盘已提交成功，信息已保存到本地询盘表，并同步发送到邮箱。",
+      success: "询盘已提交成功，信息已发送到邮箱，方便后续跟进。",
       error: "暂时无法提交询盘，请稍后重试，或直接通过 WhatsApp 联系。"
     }
   };

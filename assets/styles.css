@@ -766,6 +766,15 @@ textarea {
   resize: vertical;
 }
 
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .form-status {
   min-height: 22px;
   margin: 8px 0 0;

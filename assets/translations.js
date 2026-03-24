@@ -1869,7 +1869,7 @@ window.MERITSOURCE_I18N = {
           directTitle: "Direct contact",
           directLead: "You can also reach us directly by email or WhatsApp for faster communication.",
           recordsTitle: "Inquiry handling",
-          recordsLead: "Submitted inquiries are saved to a local inquiry sheet on this computer and also sent to email for follow-up.",
+          recordsLead: "Submitted inquiries are sent to our email inbox for review and follow-up.",
           whatsappTitle: "WhatsApp option",
           whatsappLead: "If faster communication is preferred, WhatsApp can be used to confirm product details, sample plans, and shipping arrangements.",
           whatsappButton: "Talk to Our Team"
@@ -1900,8 +1900,8 @@ window.MERITSOURCE_I18N = {
           list: ["适合工作室、品牌方与批发客户", "中国供应商，可支持海外项目合作", "支持产品、Logo 与包装方案沟通", "面向出口合作与报价跟进"],
           directTitle: "直接联系",
           directLead: "如果希望更直接沟通，也可以通过邮箱或 WhatsApp 联系。",
-          recordsTitle: "询盘收集方式",
-          recordsLead: "提交后的询盘会保存到这台电脑的本地询盘表，同时发送到邮箱，方便后续跟进。",
+          recordsTitle: "询盘处理方式",
+          recordsLead: "提交后的询盘会直接发送到邮箱，方便及时查看与后续跟进。",
           whatsappTitle: "快速沟通",
           whatsappLead: "如果希望更快确认产品细节、打样安排或出货计划，也可以通过 WhatsApp 继续沟通。",
           whatsappButton: "立即沟通"

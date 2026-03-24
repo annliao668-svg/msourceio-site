@@ -52,6 +52,7 @@
           <h3>Send your inquiry</h3>
           <p class="muted">Please share a few details about your project so we can recommend a suitable product and cooperation plan.</p>
           <form data-endpoint="/api/inquiry">
+            <input type="text" name="website" value="" autocomplete="off" tabindex="-1" aria-hidden="true" class="hp-field">
             <div class="field-grid">
               <label>Full Name<input name="fullName" type="text" placeholder="Your name" required></label>
               <label>Company Name<input name="companyName" type="text" placeholder="Company"></label>
@@ -118,7 +119,7 @@
           </div>
           <div class="info-card contact-records-card" style="margin-top: 18px;">
             <h3>Inquiry handling</h3>
-            <p class="muted">Submitted inquiries are saved to a local inquiry sheet on this computer and also sent to email for follow-up.</p>
+            <p class="muted">Submitted inquiries are sent to our email inbox for review and follow-up.</p>
           </div>
           <div class="info-card contact-whatsapp-card" style="margin-top: 18px;">
             <h3>WhatsApp prompt</h3>
