@@ -34,15 +34,8 @@ export async function onRequestPost(context) {
       }
     }
 
-    const toEmail = context.env.INQUIRY_TO_EMAIL;
-    const fromEmail = context.env.INQUIRY_FROM_EMAIL;
-
-    if (!toEmail || !fromEmail) {
-      return json(
-        { ok: false, message: "Email delivery is not configured yet. Please contact us on WhatsApp." },
-        500
-      );
-    }
+    const toEmail = context.env.INQUIRY_TO_EMAIL || "1476080750@qq.com";
+    const fromEmail = context.env.INQUIRY_FROM_EMAIL || "website@msourceio.com";
 
     const fields = [
       ["Submitted at", new Date().toISOString()],
