@@ -1869,7 +1869,7 @@ window.MERITSOURCE_I18N = {
           directTitle: "Direct contact",
           directLead: "You can also reach us directly by email or WhatsApp for faster communication.",
           recordsTitle: "Inquiry handling",
-          recordsLead: "Submitted inquiries are sent to our email inbox for review and follow-up.",
+          recordsLead: "Submitted inquiries are reviewed by our team and followed up based on the contact details you provide.",
           whatsappTitle: "WhatsApp option",
           whatsappLead: "If faster communication is preferred, WhatsApp can be used to confirm product details, sample plans, and shipping arrangements.",
           whatsappButton: "Talk to Our Team"
@@ -1901,7 +1901,7 @@ window.MERITSOURCE_I18N = {
           directTitle: "直接联系",
           directLead: "如果希望更直接沟通，也可以通过邮箱或 WhatsApp 联系。",
           recordsTitle: "询盘处理方式",
-          recordsLead: "提交后的询盘会直接发送到邮箱，方便及时查看与后续跟进。",
+          recordsLead: "提交后的询盘会由团队查看，并根据你留下的联系方式尽快跟进。",
           whatsappTitle: "快速沟通",
           whatsappLead: "如果希望更快确认产品细节、打样安排或出货计划，也可以通过 WhatsApp 继续沟通。",
           whatsappButton: "立即沟通"

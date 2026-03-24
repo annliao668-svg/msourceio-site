@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const inquiryStatusText = {
     en: {
       sending: "Sending inquiry...",
-      success: "Inquiry submitted successfully. It has been sent to our email inbox for follow-up.",
+      success: "Inquiry submitted successfully. Our team will review it and follow up soon.",
       error: "Unable to submit the inquiry right now. Please try again later or contact us on WhatsApp."
     },
     zh: {
       sending: "正在提交询盘...",
-      success: "询盘已提交成功，信息已发送到邮箱，方便后续跟进。",
+      success: "询盘已提交成功，我们会尽快查看并与你跟进。",
       error: "暂时无法提交询盘，请稍后重试，或直接通过 WhatsApp 联系。"
     }
   };
@@ -388,14 +388,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const labels = document.querySelectorAll(".form-card form label");
     pack.form.labels.forEach((text, index) => setLabelText(labels[index], text));
 
-    const inputs = document.querySelectorAll(".form-card input");
-    setPlaceholder(".form-card input[type='text']", pack.form.placeholders[0]);
-    if (inputs[1]) inputs[1].setAttribute("placeholder", pack.form.placeholders[1]);
-    if (inputs[2]) inputs[2].setAttribute("placeholder", pack.form.placeholders[2]);
-    if (inputs[3]) inputs[3].setAttribute("placeholder", pack.form.placeholders[3]);
-    if (inputs[4]) inputs[4].setAttribute("placeholder", pack.form.placeholders[4]);
-    if (inputs[5]) inputs[5].setAttribute("placeholder", pack.form.placeholders[5]);
-    if (inputs[6]) inputs[6].setAttribute("placeholder", pack.form.placeholders[6]);
+    setPlaceholder(".form-card input[name='fullName']", pack.form.placeholders[0]);
+    setPlaceholder(".form-card input[name='companyName']", pack.form.placeholders[1]);
+    setPlaceholder(".form-card input[name='emailAddress']", pack.form.placeholders[2]);
+    setPlaceholder(".form-card input[name='whatsApp']", pack.form.placeholders[3]);
+    setPlaceholder(".form-card input[name='country']", pack.form.placeholders[4]);
+    setPlaceholder(".form-card input[name='estimatedQuantity']", pack.form.placeholders[5]);
+    setPlaceholder(".form-card input[name='packagingRequirement']", pack.form.placeholders[6]);
     setPlaceholder(".form-card textarea", pack.form.placeholders[7]);
 
     setOptions(".form-card select:nth-of-type(1)", pack.form.businessOptions);
