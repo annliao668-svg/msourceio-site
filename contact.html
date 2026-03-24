@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Meritsource Studio</title>
+  <meta name="description" content="Project inquiry support for faster sampling and quotation.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="contact">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"></span>
+        <span>Meritsource Studio<small>Pilates Socks B2B</small></span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="custom.html">Custom / OEM</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a class="active" href="contact.html">Contact</a>
+      </nav>
+      <div class="header-tools">
+        <select id="language-select" class="lang-select" aria-label="Language selector">
+          <option value="en">English</option>
+          <option value="zh">简体中文</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>    </div>
+  </header>
+
+  <main>
+    <section class="page-hero simple">
+      <div class="container">
+        <span class="eyebrow">Contact us</span>
+        <h1>Talk to our team about your Pilates socks project</h1>
+        <p class="lead">Whether you are sourcing for a Pilates studio, building a private label line, or planning a wholesale order, this form gives buyers a clear and low-friction way to get in touch.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-grid">
+        <div class="form-card">
+          <span class="pill">Inquiry form</span>
+          <h3>Send your inquiry</h3>
+          <p class="muted">Please share a few details about your project so we can recommend a suitable product and cooperation plan.</p>
+          <form data-endpoint="/api/inquiry">
+            <div class="field-grid">
+              <label>Full Name<input name="fullName" type="text" placeholder="Your name" required></label>
+              <label>Company Name<input name="companyName" type="text" placeholder="Company"></label>
+            </div>
+            <div class="field-grid">
+              <label>Email Address<input name="emailAddress" type="email" placeholder="name@company.com" required></label>
+              <label>WhatsApp<input name="whatsApp" type="text" placeholder="+82 ..."></label>
+            </div>
+            <div class="field-grid">
+              <label>Country<input name="country" type="text" placeholder="South Korea"></label>
+              <label>Business Type
+                <select name="businessType">
+                  <option>Pilates Studio</option>
+                  <option>Private Label Brand</option>
+                  <option>Wholesaler / Distributor</option>
+                  <option>Retailer</option>
+                  <option>Other Business Buyer</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>Product Interest
+                <select name="productInterest">
+                  <option>Pilates Grip Socks</option>
+                  <option>Toeless Pilates Socks</option>
+                  <option>Ankle Grip Socks</option>
+                  <option>Crew Grip Socks</option>
+                  <option>Custom Logo Pilates Socks</option>
+                </select>
+              </label>
+              <label>Estimated Quantity<input name="estimatedQuantity" type="text" placeholder="e.g. 500 pairs"></label>
+            </div>
+            <div class="field-grid">
+              <label>Need Custom Logo
+                <select name="needCustomLogo">
+                  <option>Yes</option>
+                  <option>No</option>
+                  <option>Not sure yet</option>
+                </select>
+              </label>
+              <label>Packaging Requirement<input name="packagingRequirement" type="text" placeholder="Header card / bag / box"></label>
+            </div>
+            <label>Message<textarea name="message" placeholder="Tell us about your project, target market, and customization needs." required></textarea></label>
+            <button class="btn btn-primary" type="submit">Send Inquiry</button>
+            <p class="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="contact-card">
+          <span class="pill">Fast contact</span>
+          <h3>Contact highlights</h3>
+          <ul>
+            <li>Support for studios, brands, and wholesale buyers</li>
+            <li>Custom logo and private label inquiries welcome</li>
+            <li>Export-oriented communication for overseas orders</li>
+            <li>Sample and bulk order discussions available</li>
+          </ul>
+          <div class="info-card contact-direct-card" style="margin-top: 18px;">
+            <h3>Direct contact</h3>
+            <p class="muted">You can also reach us directly by email or WhatsApp for faster communication.</p>
+            <div class="contact-methods">
+              <a class="contact-link contact-email-link" href="mailto:1476080750@qq.com">1476080750@qq.com</a>
+              <a class="contact-link contact-whatsapp-link" href="https://wa.me/8615875331576" target="_blank" rel="noreferrer">WhatsApp: +86 15875331576</a>
+            </div>
+          </div>
+          <div class="info-card contact-records-card" style="margin-top: 18px;">
+            <h3>Inquiry handling</h3>
+            <p class="muted">Submitted inquiries are saved to a local inquiry sheet on this computer and also sent to email for follow-up.</p>
+          </div>
+          <div class="info-card contact-whatsapp-card" style="margin-top: 18px;">
+            <h3>WhatsApp prompt</h3>
+            <p class="muted">Prefer faster communication? WhatsApp can be used to confirm product details, sample plans, and shipping arrangements.</p>
+            <a class="btn btn-secondary contact-whatsapp-button" href="https://wa.me/8615875331576" target="_blank" rel="noreferrer">Talk to Our Team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>Project inquiry support for faster sampling and quotation.</div>
+      <div>&copy; <span data-year></span> Meritsource Studio</div>
+    </div>
+  </footer>
+
+    <script src="assets/translations.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
+
