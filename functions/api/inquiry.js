@@ -17,6 +17,15 @@ const escapeHtml = (value = "") =>
 
 const requiredFields = ["fullName", "emailAddress", "message"];
 
+function getMailChannelsApiKey(env) {
+  return (
+    env.MAILCHANNELS_API_KEY ||
+    env.MAILCHANNELS_SEND_API_KEY ||
+    env.MAILCHANNELS_TOKEN ||
+    ""
+  ).trim();
+}
+
 export async function onRequestPost(context) {
   try {
     const payload = await context.request.json();
@@ -36,6 +45,18 @@ export async function onRequestPost(context) {
 
     const toEmail = context.env.INQUIRY_TO_EMAIL || "1476080750@qq.com";
     const fromEmail = context.env.INQUIRY_FROM_EMAIL || "website@msourceio.com";
+    const mailChannelsApiKey = getMailChannelsApiKey(context.env);
+
+    if (!mailChannelsApiKey) {
+      return json(
+        {
+          ok: false,
+          message: "Email delivery is not configured yet. Please contact us on WhatsApp.",
+          error: "Missing MAILCHANNELS_API_KEY environment variable."
+        },
+        500
+      );
+    }
 
     const fields = [
       ["Submitted at", new Date().toISOString()],
@@ -76,7 +97,10 @@ export async function onRequestPost(context) {
     try {
       const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+          "X-Api-Key": mailChannelsApiKey
+        },
         body: JSON.stringify({
           personalizations: [{ to: [{ email: toEmail }] }],
           from: {
@@ -95,22 +119,29 @@ export async function onRequestPost(context) {
         })
       });
 
-      if (mailResponse.ok) {
-        mailDelivered = true;
-      } else {
+      mailDelivered = mailResponse.ok;
+      if (!mailDelivered) {
         mailError = await mailResponse.text();
       }
     } catch (error) {
       mailError = error.message;
     }
 
+    if (!mailDelivered) {
+      return json(
+        {
+          ok: false,
+          message: "Unable to send inquiry email right now. Please contact us on WhatsApp.",
+          error: mailError || "MailChannels rejected the request."
+        },
+        502
+      );
+    }
+
     return json({
       ok: true,
-      message: mailDelivered
-        ? "Inquiry submitted successfully. It has been sent to our email inbox for follow-up."
-        : "Inquiry submitted successfully. Email delivery is temporarily unavailable, so please also contact us on WhatsApp.",
-      deliveryStatus: mailDelivered ? "sent" : "pending",
-      ...(mailError ? { error: mailError } : {})
+      message: "Inquiry submitted successfully. It has been sent to our email inbox for follow-up.",
+      deliveryStatus: "sent"
     });
   } catch (error) {
     return json(
