@@ -70,42 +70,47 @@ export async function onRequestPost(context) {
       </table>
     `;
 
-    const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: toEmail }] }],
-        from: {
-          email: fromEmail,
-          name: "Meritsource Studio Website"
-        },
-        reply_to: {
-          email: payload.emailAddress,
-          name: payload.fullName
-        },
-        subject: `New website inquiry from ${payload.fullName}`,
-        content: [
-          { type: "text/plain", value: textBody },
-          { type: "text/html", value: htmlBody }
-        ]
-      })
-    });
+    let mailDelivered = false;
+    let mailError = null;
 
-    if (!mailResponse.ok) {
-      const errorText = await mailResponse.text();
-      return json(
-        {
-          ok: false,
-          message: "Unable to send inquiry email right now. Please contact us on WhatsApp.",
-          error: errorText
-        },
-        502
-      );
+    try {
+      const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          personalizations: [{ to: [{ email: toEmail }] }],
+          from: {
+            email: fromEmail,
+            name: "Meritsource Studio Website"
+          },
+          reply_to: {
+            email: payload.emailAddress,
+            name: payload.fullName
+          },
+          subject: `New website inquiry from ${payload.fullName}`,
+          content: [
+            { type: "text/plain", value: textBody },
+            { type: "text/html", value: htmlBody }
+          ]
+        })
+      });
+
+      if (mailResponse.ok) {
+        mailDelivered = true;
+      } else {
+        mailError = await mailResponse.text();
+      }
+    } catch (error) {
+      mailError = error.message;
     }
 
     return json({
       ok: true,
-      message: "Inquiry submitted successfully. It has been sent to our email inbox for follow-up."
+      message: mailDelivered
+        ? "Inquiry submitted successfully. It has been sent to our email inbox for follow-up."
+        : "Inquiry submitted successfully. Email delivery is temporarily unavailable, so please also contact us on WhatsApp.",
+      deliveryStatus: mailDelivered ? "sent" : "pending",
+      ...(mailError ? { error: mailError } : {})
     });
   } catch (error) {
     return json(
