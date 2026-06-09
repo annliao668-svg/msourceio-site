@@ -226,7 +226,7 @@ const server = http.createServer(async (req, res) => {
       if (!emailResult.ok) {
         sendJson(res, emailResult.status || 502, {
           ok: false,
-          message: "Unable to send inquiry email right now. Please contact us on WhatsApp.",
+          message: "Sorry — we couldn't send your inquiry. For immediate assistance, please contact us on WhatsApp.",
           error: emailResult.error
         });
         return;

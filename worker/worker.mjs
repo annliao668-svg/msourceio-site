@@ -49,7 +49,7 @@ export async function onRequest(context) {
   const emailResult = await sendInquiryEmail({ env, payload, fetchImpl: fetch });
 
   if (!emailResult.ok) {
-    return jsonResponse({ ok: false, message: 'Unable to send inquiry email right now. Please contact us on WhatsApp.', error: emailResult.error }, emailResult.status || 502);
+    return jsonResponse({ ok: false, message: "Sorry — we couldn't send your inquiry. For immediate assistance, please contact us on WhatsApp.", error: emailResult.error }, emailResult.status || 502);
   }
 
   return jsonResponse({ ok: true, message: 'Inquiry submitted successfully. It has been sent to our email inbox for follow-up.', deliveryStatus: 'sent' });
@@ -74,7 +74,7 @@ async function handleFetch(request) {
 
     const emailResult = await sendInquiryEmail({ env: GLOBAL_ENV || {}, payload, fetchImpl: fetch });
     if (!emailResult.ok) {
-      return jsonResponse({ ok: false, message: 'Unable to send inquiry email right now. Please contact us on WhatsApp.', error: emailResult.error }, emailResult.status || 502);
+      return jsonResponse({ ok: false, message: "Sorry — we couldn't send your inquiry. For immediate assistance, please contact us on WhatsApp.", error: emailResult.error }, emailResult.status || 502);
     }
     return jsonResponse({ ok: true, message: 'Inquiry submitted successfully. It has been sent to our email inbox for follow-up.', deliveryStatus: 'sent' });
   }
