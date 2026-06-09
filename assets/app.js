@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     en: {
       sending: "Sending inquiry...",
       success: "Inquiry submitted successfully. Our team will review it and follow up soon.",
-      error: "Failed to send. Please contact us on WhatsApp."
+      error: "Sorry — we couldn't send your inquiry. For immediate assistance, please contact us on WhatsApp."
     },
     zh: {
       sending: "正在提交询盘...",
