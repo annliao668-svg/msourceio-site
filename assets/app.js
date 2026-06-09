@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
     en: {
       sending: "Sending inquiry...",
       success: "Inquiry submitted successfully. Our team will review it and follow up soon.",
-      error: "Unable to submit the inquiry right now. Please try again later or contact us on WhatsApp."
+      error: "Failed to send. Please contact us on WhatsApp."
     },
     zh: {
       sending: "正在提交询盘...",
       success: "询盘已提交成功，我们会尽快查看并与你跟进。",
-      error: "暂时无法提交询盘，请稍后重试，或直接通过 WhatsApp 联系。"
+      error: "发送失败，联系WhatsApp"
     }
   };
 
