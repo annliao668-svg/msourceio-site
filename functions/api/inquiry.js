@@ -51,7 +51,7 @@ export async function onRequestPost(context) {
       return json(
         {
           ok: false,
-          message: "Sorry — we couldn't send your inquiry. For immediate assistance, please contact us on WhatsApp.",
+          message: "Sorry — we can't submit your inquiry right now. For immediate assistance, please contact us on WhatsApp.",
           error: emailResult.error
         },
         emailResult.status || 502
@@ -67,7 +67,7 @@ export async function onRequestPost(context) {
     return json(
       {
         ok: false,
-        message: "Sorry — we couldn't submit your inquiry right now. For immediate assistance, please contact us on WhatsApp.",
+        message: "Sorry — we can't submit your inquiry right now. For immediate assistance, please contact us on WhatsApp.",
         error: error.message
       },
       500
