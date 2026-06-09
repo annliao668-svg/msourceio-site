@@ -1,29 +1,32 @@
+import {
+  sendInquiryEmail,
+  validateInquiryPayload
+} from "../lib/inquiry-email.mjs";
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept'
+};
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
     status,
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-      "cache-control": "no-store"
-    }
+    headers: Object.assign(
+      {
+        "content-type": "application/json; charset=utf-8",
+        "cache-control": "no-store"
+      },
+      CORS_HEADERS
+    )
   });
 
-const escapeHtml = (value = "") =>
-  String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-
-const requiredFields = ["fullName", "emailAddress", "message"];
-
-function getMailChannelsApiKey(env) {
-  return (
-    env.MAILCHANNELS_API_KEY ||
-    env.MAILCHANNELS_SEND_API_KEY ||
-    env.MAILCHANNELS_TOKEN ||
-    ""
-  ).trim();
+export function onRequestOptions(context) {
+  // Handle preflight CORS requests
+  return new Response(null, {
+    status: 204,
+    headers: CORS_HEADERS
+  });
 }
 
 export async function onRequestPost(context) {
@@ -34,107 +37,24 @@ export async function onRequestPost(context) {
       return json({ ok: true, message: "Inquiry submitted successfully." });
     }
 
-    for (const field of requiredFields) {
-      if (!String(payload[field] || "").trim()) {
-        return json(
-          { ok: false, message: "Please complete the required fields before submitting." },
-          400
-        );
-      }
+    const validation = validateInquiryPayload(payload);
+    if (!validation.ok) {
+      return json({ ok: false, message: validation.message }, validation.status);
     }
 
-    const toEmail = context.env.INQUIRY_TO_EMAIL || "1476080750@qq.com";
-    const fromEmail = context.env.INQUIRY_FROM_EMAIL || "website@msourceio.com";
-    const mailChannelsApiKey = getMailChannelsApiKey(context.env);
+    const emailResult = await sendInquiryEmail({
+      env: context.env,
+      payload
+    });
 
-    if (!mailChannelsApiKey) {
-      return json(
-        {
-          ok: false,
-          message: "Email delivery is not configured yet. Please contact us on WhatsApp.",
-          error: "Missing MAILCHANNELS_API_KEY environment variable."
-        },
-        500
-      );
-    }
-
-    const fields = [
-      ["Submitted at", new Date().toISOString()],
-      ["Full name", payload.fullName],
-      ["Company name", payload.companyName],
-      ["Email address", payload.emailAddress],
-      ["WhatsApp", payload.whatsApp],
-      ["Country", payload.country],
-      ["Business type", payload.businessType],
-      ["Product interest", payload.productInterest],
-      ["Estimated quantity", payload.estimatedQuantity],
-      ["Need custom logo", payload.needCustomLogo],
-      ["Packaging requirement", payload.packagingRequirement],
-      ["Message", payload.message]
-    ];
-
-    const textBody = fields
-      .filter(([, value]) => String(value || "").trim())
-      .map(([label, value]) => `${label}: ${value}`)
-      .join("\n");
-
-    const htmlBody = `
-      <h2>New website inquiry</h2>
-      <table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse;font-family:Arial,sans-serif;">
-        ${fields
-          .filter(([, value]) => String(value || "").trim())
-          .map(
-            ([label, value]) =>
-              `<tr><th align="left">${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`
-          )
-          .join("")}
-      </table>
-    `;
-
-    let mailDelivered = false;
-    let mailError = null;
-
-    try {
-      const mailResponse = await fetch("https://api.mailchannels.net/tx/v1/send", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "X-Api-Key": mailChannelsApiKey
-        },
-        body: JSON.stringify({
-          personalizations: [{ to: [{ email: toEmail }] }],
-          from: {
-            email: fromEmail,
-            name: "Meritsource Studio Website"
-          },
-          reply_to: {
-            email: payload.emailAddress,
-            name: payload.fullName
-          },
-          subject: `New website inquiry from ${payload.fullName}`,
-          content: [
-            { type: "text/plain", value: textBody },
-            { type: "text/html", value: htmlBody }
-          ]
-        })
-      });
-
-      mailDelivered = mailResponse.ok;
-      if (!mailDelivered) {
-        mailError = await mailResponse.text();
-      }
-    } catch (error) {
-      mailError = error.message;
-    }
-
-    if (!mailDelivered) {
+    if (!emailResult.ok) {
       return json(
         {
           ok: false,
           message: "Unable to send inquiry email right now. Please contact us on WhatsApp.",
-          error: mailError || "MailChannels rejected the request."
+          error: emailResult.error
         },
-        502
+        emailResult.status || 502
       );
     }
 

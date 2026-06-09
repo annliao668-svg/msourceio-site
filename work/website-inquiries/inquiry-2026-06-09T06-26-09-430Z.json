@@ -1,0 +1,14 @@
+{
+  "submittedAt": "2026-06-09T06:26:09.430Z",
+  "fullName": "Test User",
+  "companyName": "Acme",
+  "emailAddress": "tester@example.com",
+  "whatsApp": "123456",
+  "country": "China",
+  "businessType": "Distributor",
+  "productInterest": "Pilates Grip Socks",
+  "estimatedQuantity": "100",
+  "needCustomLogo": "Yes",
+  "packagingRequirement": "Gift box",
+  "message": "Hello from the local verification script"
+}

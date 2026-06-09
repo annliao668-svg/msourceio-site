@@ -1,0 +1,14 @@
+{
+  "submittedAt": "2026-06-08T12:25:52.601Z",
+  "fullName": "Codex Test",
+  "companyName": "ACME",
+  "emailAddress": "test@example.com",
+  "whatsApp": "+861234567890",
+  "country": "China",
+  "businessType": "Pilates Studio",
+  "productInterest": "Pilates Grip Socks",
+  "estimatedQuantity": "100",
+  "needCustomLogo": "Yes",
+  "packagingRequirement": "Header card",
+  "message": "Local verification test"
+}

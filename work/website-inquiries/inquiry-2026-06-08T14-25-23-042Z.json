@@ -1,0 +1,14 @@
+{
+  "submittedAt": "2026-06-08T14:25:23.042Z",
+  "fullName": "Test User",
+  "companyName": "Test Co",
+  "emailAddress": "test@example.com",
+  "whatsApp": "12345",
+  "country": "US",
+  "businessType": "Brand",
+  "productInterest": "Pilates socks",
+  "estimatedQuantity": "100",
+  "needCustomLogo": "Yes",
+  "packagingRequirement": "Box",
+  "message": "Hello from test"
+}

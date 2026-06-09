@@ -1,0 +1,14 @@
+{
+  "submittedAt": "2026-06-08T12:47:29.473Z",
+  "fullName": "Test User",
+  "companyName": "Test Co",
+  "emailAddress": "test@example.com",
+  "whatsApp": "+1 555",
+  "country": "US",
+  "businessType": "Retailer",
+  "productInterest": "Pilates Grip Socks",
+  "estimatedQuantity": "100",
+  "needCustomLogo": "Yes",
+  "packagingRequirement": "Box",
+  "message": "Hello from Codex"
+}
