@@ -29,6 +29,15 @@ function joinUrl(baseUrl, suffix) {
   return `${normalizedBase}/${normalizedSuffix}`;
 }
 
+function parseRecipientEmails(value) {
+  const recipients = String(value || "")
+    .split(/[\s,;]+/)
+    .map((email) => email.trim())
+    .filter(Boolean);
+
+  return recipients.length ? [...new Set(recipients)] : [DEFAULT_TO_EMAIL];
+}
+
 function extractTextCandidate(value) {
   if (typeof value === "string" && value.trim()) {
     return value.trim();
@@ -97,9 +106,12 @@ export function validateInquiryPayload(payload) {
 }
 
 export function getInquiryEmailConfig(env = {}) {
+  const toEmails = parseRecipientEmails(env.INQUIRY_TO_EMAIL || DEFAULT_TO_EMAIL);
+
   return {
     provider: normalizeProvider(env.EMAIL_PROVIDER || env.INQUIRY_EMAIL_PROVIDER || "mailchannels"),
-    toEmail: String(env.INQUIRY_TO_EMAIL || DEFAULT_TO_EMAIL).trim(),
+    toEmail: toEmails[0],
+    toEmails,
     fromEmail: String(env.INQUIRY_FROM_EMAIL || DEFAULT_FROM_EMAIL).trim(),
     mailchannelsApiKey: String(
       env.MAILCHANNELS_API_KEY || env.MAILCHANNELS_SEND_API_KEY || env.MAILCHANNELS_TOKEN || ""
@@ -166,7 +178,7 @@ async function sendViaMailChannels({ config, payload, fetchImpl }) {
   const responsePayload = {
     personalizations: [
       {
-        to: [{ email: config.toEmail }]
+        to: config.toEmails.map((email) => ({ email }))
       }
     ],
     from: {

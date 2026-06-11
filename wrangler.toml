@@ -9,5 +9,5 @@ main = "./worker/worker.mjs"
   command = ""
 
 [vars]
-INQUIRY_TO_EMAIL = "1476080750@qq.com"
+INQUIRY_TO_EMAIL = "1476080750@qq.com,annliao@msourceio.com"
 EMAIL_PROVIDER = "mailchannels"

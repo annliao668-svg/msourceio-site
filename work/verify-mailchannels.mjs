@@ -72,6 +72,7 @@ await new Promise((resolve) => {
 
 const app = spawnNode(["server.mjs", "--port", String(appPort)], {
   EMAIL_PROVIDER: "mailchannels",
+  INQUIRY_TO_EMAIL: "1476080750@qq.com,annliao@msourceio.com",
   MAILCHANNELS_API_KEY: "test-key",
   MAILCHANNELS_BASE_URL: `http://127.0.0.1:${mockPort}/tx/v1`
 });
@@ -108,6 +109,13 @@ try {
   }
 
   const sentBody = JSON.parse(sent.body);
+  const recipients = sentBody.personalizations?.[0]?.to?.map((recipient) => recipient.email) || [];
+  for (const email of ["1476080750@qq.com", "annliao@msourceio.com"]) {
+    if (!recipients.includes(email)) {
+      throw new Error(`Expected MailChannels recipient ${email}.`);
+    }
+  }
+
   console.log(
     JSON.stringify(
       {
@@ -117,7 +125,7 @@ try {
           method: sent.method,
           url: sent.url,
           apiKeyHeaderPresent: Boolean(sent.headers["x-api-key"]),
-          to: sentBody.personalizations?.[0]?.to?.[0]?.email,
+          to: recipients,
           from: sentBody.from?.email,
           subject: sentBody.subject
         }
