@@ -1,4 +1,5 @@
 const DEFAULT_TO_EMAIL = "1476080750@qq.com";
+const DEFAULT_BACKUP_EMAIL = "annliao@msourceio.com";
 const DEFAULT_FROM_EMAIL = "website@msourceio.com";
 const DEFAULT_MAILCHANNELS_BASE_URL = "https://api.mailchannels.net/tx/v1";
 
@@ -29,8 +30,9 @@ function joinUrl(baseUrl, suffix) {
   return `${normalizedBase}/${normalizedSuffix}`;
 }
 
-function parseRecipientEmails(value) {
-  const recipients = String(value || "")
+function parseRecipientEmails(...values) {
+  const recipients = values
+    .join(",")
     .split(/[\s,;]+/)
     .map((email) => email.trim())
     .filter(Boolean);
@@ -106,7 +108,10 @@ export function validateInquiryPayload(payload) {
 }
 
 export function getInquiryEmailConfig(env = {}) {
-  const toEmails = parseRecipientEmails(env.INQUIRY_TO_EMAIL || DEFAULT_TO_EMAIL);
+  const toEmails = parseRecipientEmails(
+    env.INQUIRY_TO_EMAIL || DEFAULT_TO_EMAIL,
+    env.INQUIRY_BACKUP_EMAIL || DEFAULT_BACKUP_EMAIL
+  );
 
   return {
     provider: normalizeProvider(env.EMAIL_PROVIDER || env.INQUIRY_EMAIL_PROVIDER || "mailchannels"),

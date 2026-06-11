@@ -72,7 +72,7 @@ await new Promise((resolve) => {
 
 const app = spawnNode(["server.mjs", "--port", String(appPort)], {
   EMAIL_PROVIDER: "mailchannels",
-  INQUIRY_TO_EMAIL: "1476080750@qq.com,annliao@msourceio.com",
+  INQUIRY_TO_EMAIL: "1476080750@qq.com",
   MAILCHANNELS_API_KEY: "test-key",
   MAILCHANNELS_BASE_URL: `http://127.0.0.1:${mockPort}/tx/v1`
 });

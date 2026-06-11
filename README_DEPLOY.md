@@ -8,6 +8,7 @@ Cloudflare Pages deployment guide
 
 2. Environment variables (Pages -> Settings -> Environment variables):
    - INQUIRY_TO_EMAIL (optional, default in code provided; use comma-separated addresses for multiple recipients)
+   - INQUIRY_BACKUP_EMAIL (optional, default backup recipient is annliao@msourceio.com)
    - EMAIL_PROVIDER (e.g. mailchannels or cloudflare-email-service) or INQUIRY_EMAIL_PROVIDER
    - MAILCHANNELS_API_KEY (if using mailchannels)
    - CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_EMAIL_API_TOKEN (if using Cloudflare email)
